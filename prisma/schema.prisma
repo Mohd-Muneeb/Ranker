@@ -68,6 +68,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    username      String    @unique
+    password      String
 }
 
 model VerificationToken {
@@ -76,4 +78,129 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Menu_Register {
+    id         Int    @id @unique @default(autoincrement())
+    Date       Int
+    Day        String
+    Breakfast  String
+    Lunch      String
+    Eve_Snacks String
+    Dinner     String
+    Special    String
+}
+
+model Contact_Diary {
+    id         Int    @id @unique @default(autoincrement())
+    Date       Int
+    Name       String
+    Contact_No Int
+    Address    String
+}
+
+model Consent_Letter {
+    id    Int    @id @unique @default(autoincrement())
+    Date  Int
+    Name  String
+    Image String
+}
+
+model Childrens_Review_Meeting {
+    id                   Int    @id @unique @default(autoincrement())
+    Date                 Int
+    Name_of_participants String
+    Agenda_of_meeting    String
+    Issues_Discussed     String
+    Decisions_taken      String
+    Action_points        String
+}
+
+model Assets_Register {
+    id                Int     @id @unique @default(autoincrement())
+    Date              Int
+    Name_of_item      String
+    Recieved_Date     Int
+    Quantity_received Int
+    Warranty          String
+    Sign              Boolean
+}
+
+model Child_Counseling_record {
+    id                         Int    @id @unique @default(autoincrement())
+    Date                       Int
+    Time                       Int
+    Individual_or_group        String
+    Issues_Identified          String
+    Observation_of_staff       String
+    Intervention_of_counsellor String
+    Next_Meeting_Date          Int
+    Follow_up                  String
+}
+
+// model Visitors_Register {
+//     UPLOAD PICTURE FOR THIS ONE   
+// }
+
+model Childeren_movement_Register {
+    id                        Int     @id @unique @default(autoincrement())
+    Date                      Int
+    Name                      String
+    Purpose_and_Place         String
+    Accompanied_Person_and_No Int
+    Promised_date             Int
+    Returned_date             Int
+    Remarks_reasons           Int
+    Signed                    Boolean
+}
+
+model Staff_movement_Register {
+    id                Int     @id @unique @default(autoincrement())
+    Date              Int
+    Name              String
+    Purpose_and_Place String
+    Signed            Boolean
+}
+
+model Medicine_Stock_Register {
+    id               Int    @id @unique @default(autoincrement())
+    Date             Int
+    Medicine_Name    String
+    Quantity         String
+    Date_of_Purchase Int
+    Expiry_Date      Int
+}
+
+model Medicine_Used_Register {
+    id                  Int    @id @unique @default(autoincrement())
+    Date                Int
+    Child_Name          String
+    Nature_of_illness   String
+    Given_Medicine_Name Int
+}
+
+model Main_Register {
+    id                   Int    @id @unique @default(autoincrement())
+    Date                 Int
+    Admission_no         Int
+    Name_of_the_Child    Int
+    Surname_or_Housename String
+    Gender               String
+    Date_of_Birth        Int
+    Place_of_Birth       String
+    District_or_State    String
+    Nationality          String
+    Religion             String
+    Caste                String
+    SC_ST                String
+    Identification_marks String
+    Fathers_name         String
+    Mothers_name         String
+    Occupation           String
+    Alive_or_Deceased    String
+    Name_of_guardian     String
+    Relation_with_Child  String
+    Contact_Number       Int
+    Address              String
+    Short_Family_history String
 }
