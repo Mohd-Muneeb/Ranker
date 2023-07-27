@@ -1,4 +1,5 @@
-import NorthIcon from '@mui/icons-material/North';
+import { CalendarMonth } from "@mui/icons-material";
+import NorthIcon from "@mui/icons-material/North";
 import React from "react";
 
 const ChoiceCard = () => {
@@ -17,6 +18,7 @@ const ChoiceCard = () => {
             Assigned by <span className="font-mono">Username</span>
           </p>
           <p className="text-sm font-light">
+            <p className="flex items-center gap-2 my-1"><CalendarMonth /> 14th July, 2023</p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
             omnis totam porro placeat sint soluta! Ipsa nam incidunt, voluptates
             suscipit, amet quos dicta modi possimus ullam deserunt sapiente et
@@ -25,7 +27,10 @@ const ChoiceCard = () => {
         </div>
       </div>
       <div className="flex w-full justify-end gap-4">
-        <button> <NorthIcon /> Upvote</button>
+        <button>
+          {" "}
+          <NorthIcon /> Upvote
+        </button>
       </div>
     </div>
   );
