@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { createReactEditorJS } from "react-editor-js";
-import { InferGetServerSidePropsType } from "next";
+import { type InferGetServerSidePropsType } from "next";
 
 const CustomEditor = dynamic(async () => await import("../components/CustomEditor"), {
 	ssr: false,
@@ -21,6 +20,8 @@ export default Editor;
 
 export function getServerSideProps(){
 	return {
-		props: null
+		props: {
+			title: "Oops"
+		}
 	}
 }

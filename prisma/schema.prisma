@@ -5,202 +5,212 @@ generator client {
     provider = "prisma-client-js"
 }
 
+
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+    url = env("DATABASE_URL")
 }
 
-model Volunteers {
-    id         Int     @id @unique @default(autoincrement())
-    Date       String
-    Name       String
-    Contact_No Int
-    Email_ID   String
-    Time       Int
-    Purpose    String
-    Signed     Boolean
-}
 
-//Invalid from here to this project
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
 
-// Necessary for Next auth
-model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
-}
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    username      String    @unique
-    password      String
-}
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
 
-    @@unique([identifier, token])
-}
 
-model Menu_Register {
-    id         Int    @id @unique @default(autoincrement())
-    Date       Int
-    Day        String
-    Breakfast  String
-    Lunch      String
-    Eve_Snacks String
-    Dinner     String
-    Special    String
-}
 
-model Contact_Diary {
-    id         Int    @id @unique @default(autoincrement())
-    Date       Int
-    Name       String
-    Contact_No Int
-    Address    String
-}
 
-model Consent_Letter {
-    id    Int    @id @unique @default(autoincrement())
-    Date  Int
-    Name  String
-    Image String
-}
-
-model Childrens_Review_Meeting {
-    id                   Int    @id @unique @default(autoincrement())
-    Date                 Int
-    Name_of_participants String
-    Agenda_of_meeting    String
-    Issues_Discussed     String
-    Decisions_taken      String
-    Action_points        String
-}
-
-model Assets_Register {
-    id                Int     @id @unique @default(autoincrement())
-    Date              Int
-    Name_of_item      String
-    Recieved_Date     Int
-    Quantity_received Int
-    Warranty          String
-    Sign              Boolean
-}
-
-model Child_Counseling_record {
-    id                         Int    @id @unique @default(autoincrement())
-    Date                       Int
-    Time                       Int
-    Individual_or_group        String
-    Issues_Identified          String
-    Observation_of_staff       String
-    Intervention_of_counsellor String
-    Next_Meeting_Date          Int
-    Follow_up                  String
-}
-
-// model Visitors_Register {
-//     UPLOAD PICTURE FOR THIS ONE   
+// model Volunteers {
+//     id         Int     @id @unique @default(autoincrement())
+//     Date       String
+//     Name       String
+//     Contact_No Int
+//     Email_ID   String
+//     Time       Int
+//     Purpose    String
+//     Signed     Boolean
 // }
 
-model Childeren_movement_Register {
-    id                        Int     @id @unique @default(autoincrement())
-    Date                      Int
-    Name                      String
-    Purpose_and_Place         String
-    Accompanied_Person_and_No Int
-    Promised_date             Int
-    Returned_date             Int
-    Remarks_reasons           Int
-    Signed                    Boolean
-}
+// //Invalid from here to this project
 
-model Staff_movement_Register {
-    id                Int     @id @unique @default(autoincrement())
-    Date              Int
-    Name              String
-    Purpose_and_Place String
-    Signed            Boolean
-}
+// model Example {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+// }
 
-model Medicine_Stock_Register {
-    id               Int    @id @unique @default(autoincrement())
-    Date             Int
-    Medicine_Name    String
-    Quantity         String
-    Date_of_Purchase Int
-    Expiry_Date      Int
-}
+// // Necessary for Next auth
+// model Account {
+//     id                String  @id @default(cuid())
+//     userId            String
+//     type              String
+//     provider          String
+//     providerAccountId String
+//     refresh_token     String? // @db.Text
+//     access_token      String? // @db.Text
+//     expires_at        Int?
+//     token_type        String?
+//     scope             String?
+//     id_token          String? // @db.Text
+//     session_state     String?
+//     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-model Medicine_Used_Register {
-    id                  Int    @id @unique @default(autoincrement())
-    Date                Int
-    Child_Name          String
-    Nature_of_illness   String
-    Given_Medicine_Name Int
-}
+//     @@unique([provider, providerAccountId])
+// }
 
-model Main_Register {
-    id                   Int    @id @unique @default(autoincrement())
-    Date                 Int
-    Admission_no         Int
-    Name_of_the_Child    Int
-    Surname_or_Housename String
-    Gender               String
-    Date_of_Birth        Int
-    Place_of_Birth       String
-    District_or_State    String
-    Nationality          String
-    Religion             String
-    Caste                String
-    SC_ST                String
-    Identification_marks String
-    Fathers_name         String
-    Mothers_name         String
-    Occupation           String
-    Alive_or_Deceased    String
-    Name_of_guardian     String
-    Relation_with_Child  String
-    Contact_Number       Int
-    Address              String
-    Short_Family_history String
-}
+// model Session {
+//     id           String   @id @default(cuid())
+//     sessionToken String   @unique
+//     userId       String
+//     expires      DateTime
+//     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
+
+// model User {
+//     id            String    @id @default(cuid())
+//     name          String?
+//     email         String?   @unique
+//     emailVerified DateTime?
+//     image         String?
+//     accounts      Account[]
+//     sessions      Session[]
+//     username      String    @unique
+//     password      String
+// }
+
+// model VerificationToken {
+//     identifier String
+//     token      String   @unique
+//     expires    DateTime
+
+//     @@unique([identifier, token])
+// }
+
+// model Menu_Register {
+//     id         Int    @id @unique @default(autoincrement())
+//     Date       Int
+//     Day        String
+//     Breakfast  String
+//     Lunch      String
+//     Eve_Snacks String
+//     Dinner     String
+//     Special    String
+// }
+
+// model Contact_Diary {
+//     id         Int    @id @unique @default(autoincrement())
+//     Date       Int
+//     Name       String
+//     Contact_No Int
+//     Address    String
+// }
+
+// model Consent_Letter {
+//     id    Int    @id @unique @default(autoincrement())
+//     Date  Int
+//     Name  String
+//     Image String
+// }
+
+// model Childrens_Review_Meeting {
+//     id                   Int    @id @unique @default(autoincrement())
+//     Date                 Int
+//     Name_of_participants String
+//     Agenda_of_meeting    String
+//     Issues_Discussed     String
+//     Decisions_taken      String
+//     Action_points        String
+// }
+
+// model Assets_Register {
+//     id                Int     @id @unique @default(autoincrement())
+//     Date              Int
+//     Name_of_item      String
+//     Recieved_Date     Int
+//     Quantity_received Int
+//     Warranty          String
+//     Sign              Boolean
+// }
+
+// model Child_Counseling_record {
+//     id                         Int    @id @unique @default(autoincrement())
+//     Date                       Int
+//     Time                       Int
+//     Individual_or_group        String
+//     Issues_Identified          String
+//     Observation_of_staff       String
+//     Intervention_of_counsellor String
+//     Next_Meeting_Date          Int
+//     Follow_up                  String
+// }
+
+// // model Visitors_Register {
+// //     UPLOAD PICTURE FOR THIS ONE   
+// // }
+
+// model Childeren_movement_Register {
+//     id                        Int     @id @unique @default(autoincrement())
+//     Date                      Int
+//     Name                      String
+//     Purpose_and_Place         String
+//     Accompanied_Person_and_No Int
+//     Promised_date             Int
+//     Returned_date             Int
+//     Remarks_reasons           Int
+//     Signed                    Boolean
+// }
+
+// model Staff_movement_Register {
+//     id                Int     @id @unique @default(autoincrement())
+//     Date              Int
+//     Name              String
+//     Purpose_and_Place String
+//     Signed            Boolean
+// }
+
+// model Medicine_Stock_Register {
+//     id               Int    @id @unique @default(autoincrement())
+//     Date             Int
+//     Medicine_Name    String
+//     Quantity         String
+//     Date_of_Purchase Int
+//     Expiry_Date      Int
+// }
+
+// model Medicine_Used_Register {
+//     id                  Int    @id @unique @default(autoincrement())
+//     Date                Int
+//     Child_Name          String
+//     Nature_of_illness   String
+//     Given_Medicine_Name Int
+// }
+
+// model Main_Register {
+//     id                   Int    @id @unique @default(autoincrement())
+//     Date                 Int
+//     Admission_no         Int
+//     Name_of_the_Child    Int
+//     Surname_or_Housename String
+//     Gender               String
+//     Date_of_Birth        Int
+//     Place_of_Birth       String
+//     District_or_State    String
+//     Nationality          String
+//     Religion             String
+//     Caste                String
+//     SC_ST                String
+//     Identification_marks String
+//     Fathers_name         String
+//     Mothers_name         String
+//     Occupation           String
+//     Alive_or_Deceased    String
+//     Name_of_guardian     String
+//     Relation_with_Child  String
+//     Contact_Number       Int
+//     Address              String
+//     Short_Family_history String
+// }
