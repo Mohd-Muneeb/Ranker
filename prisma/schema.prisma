@@ -5,24 +5,44 @@ generator client {
     provider = "prisma-client-js"
 }
 
-
 datasource db {
     provider = "postgresql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
-    url = env("DATABASE_URL")
+    url      = env("DATABASE_URL")
 }
 
+model User {
+    password String
 
+    id       String    @id @unique @default(cuid())
+    username String    @unique
+    Accounts Account[]
+    Sessions Session[]
+    polls    Poll[]
+}
 
+model Choice {
+    id          String   @id @unique @default(cuid())
+    title       String
+    description String
+    Poll        Poll     @relation(fields: [pollId], references: [id])
+    pollId      String
+    votes       Int
+    createdAt   DateTime
+    image       String
+}
 
-
-
-
-
-
-
-
+model Poll {
+    id          String   @id @unique @default(cuid())
+    title       String
+    description String
+    image       String
+    createdAt   DateTime
+    User        User     @relation(fields: [user], references: [username])
+    user        String
+    choices     Choice[]
+}
 
 // model Volunteers {
 //     id         Int     @id @unique @default(autoincrement())
@@ -43,32 +63,32 @@ datasource db {
 //     updatedAt DateTime @updatedAt
 // }
 
-// // Necessary for Next auth
-// model Account {
-//     id                String  @id @default(cuid())
-//     userId            String
-//     type              String
-//     provider          String
-//     providerAccountId String
-//     refresh_token     String? // @db.Text
-//     access_token      String? // @db.Text
-//     expires_at        Int?
-//     token_type        String?
-//     scope             String?
-//     id_token          String? // @db.Text
-//     session_state     String?
-//     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+// Necessary for Next auth
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? // @db.Text
+    access_token      String? // @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? // @db.Text
+    session_state     String?
+    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-//     @@unique([provider, providerAccountId])
-// }
+    @@unique([provider, providerAccountId])
+}
 
-// model Session {
-//     id           String   @id @default(cuid())
-//     sessionToken String   @unique
-//     userId       String
-//     expires      DateTime
-//     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 // model User {
 //     id            String    @id @default(cuid())
