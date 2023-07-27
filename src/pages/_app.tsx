@@ -15,14 +15,16 @@ const poppins = Poppins({
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => {
+      Component,
+      pageProps: { session, ...pageProps },
+    }) => {
   return (
     <SessionProvider session={session}>
       <main className={`${poppins.className} bg-base-100`}>
         <NavBar />
-        <Component {...pageProps} />
+        <main className="w-[95vw] ml-[2.5vw]">
+          <Component {...pageProps} />
+        </main>
         <Footer />
       </main>
     </SessionProvider>

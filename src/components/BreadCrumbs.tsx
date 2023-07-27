@@ -1,9 +1,18 @@
-import React from 'react'
+import { useRouter } from "next/router";
+import React from "react";
 
 const BreadCrumbs = () => {
-  return (
-    <div>BreadCrumbs</div>
-  )
-}
+  const router = useRouter();
 
-export default BreadCrumbs
+  const path = router.basePath.split("/");
+  return (
+    <div>
+      BreadCrumbs
+      {path.map((e) => (
+        <h1 key={e}>{e}</h1>
+      ))}
+    </div>
+  );
+};
+
+export default BreadCrumbs;
