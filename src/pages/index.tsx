@@ -4,9 +4,11 @@ import { useSession } from "next-auth/react";
 import { type InferGetServerSidePropsType } from "next";
 import BreadCrumbs from "~/components/BreadCrumbs";
 import ElectionCard from "~/components/ElectionCard";
+import { prisma } from "~/server/db";
+import { Poll } from "@prisma/client";
 
 export default function Home(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  { polls }: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const { data: session } = useSession();
 
@@ -31,16 +33,18 @@ export default function Home(
 
         </div>
         {session ? <h1>You are logged in bro</h1> : <SignIn />}
-        
+
       </main>
     </>
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  const elections: Poll[] = await prisma.poll.findMany();
+
   return {
     props: {
-      test: "test",
+      polls: elections,
     },
   };
 }
